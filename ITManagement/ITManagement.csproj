@@ -1,0 +1,295 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{56DA0ACA-F2C9-4841-BCD0-7E2878EDE054}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ITManagement</RootNamespace>
+    <AssemblyName>ITManagement</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>ITManagement.Program</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>monitor-48.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Action_Log.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Action_Log.Designer.cs">
+      <DependentUpon>Action_Log.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddReminder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddReminder.Designer.cs">
+      <DependentUpon>AddReminder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Advanced Search.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Advanced Search.Designer.cs">
+      <DependentUpon>Advanced Search.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Databases.cs" />
+    <Compile Include="DecryptingWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DecryptingWindow.Designer.cs">
+      <DependentUpon>DecryptingWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Edit Stations.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Edit Stations.Designer.cs">
+      <DependentUpon>Edit Stations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Encrypter.cs" />
+    <Compile Include="Inventory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Inventory.Designer.cs">
+      <DependentUpon>Inventory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IT_Information.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IT_Information.Designer.cs">
+      <DependentUpon>IT_Information.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Office.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Office.Designer.cs">
+      <DependentUpon>Office.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PurchaseHistory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PurchaseHistory.Designer.cs">
+      <DependentUpon>PurchaseHistory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reminders.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reminders.Designer.cs">
+      <DependentUpon>Reminders.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Repository.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Repository.Designer.cs">
+      <DependentUpon>Repository.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Settings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Settings.Designer.cs">
+      <DependentUpon>Settings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Shipping_Information_Dialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Shipping_Information_Dialog.Designer.cs">
+      <DependentUpon>Shipping_Information_Dialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tranfer Inventory Dialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tranfer Inventory Dialog.Designer.cs">
+      <DependentUpon>Tranfer Inventory Dialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="User_Info.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="User_Info.Designer.cs">
+      <DependentUpon>User_Info.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Action_Log.resx">
+      <DependentUpon>Action_Log.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddReminder.resx">
+      <DependentUpon>AddReminder.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Advanced Search.resx">
+      <DependentUpon>Advanced Search.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DecryptingWindow.resx">
+      <DependentUpon>DecryptingWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Edit Stations.resx">
+      <DependentUpon>Edit Stations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inventory.resx">
+      <DependentUpon>Inventory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IT_Information.resx">
+      <DependentUpon>IT_Information.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login.af-ZA.resx">
+      <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Office.resx">
+      <DependentUpon>Office.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="PurchaseHistory.resx">
+      <DependentUpon>PurchaseHistory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reminders.resx">
+      <DependentUpon>Reminders.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Repository.resx">
+      <DependentUpon>Repository.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Settings.resx">
+      <DependentUpon>Settings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Shipping_Information_Dialog.resx">
+      <DependentUpon>Shipping_Information_Dialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tranfer Inventory Dialog.resx">
+      <DependentUpon>Tranfer Inventory Dialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="User_Info.resx">
+      <DependentUpon>User_Info.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EXCOFLOOR.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="1467142094_Non-Service_Specific_copy_AWS_Management_Console.ico" />
+    <Content Include="1467142384_On-Demand_Workforce_copy_Amazon_Mechanical_Turk_Workers.ico" />
+    <Content Include="monitor-48.ico" />
+    <None Include="Resources\search.png" />
+    <None Include="Resources\shipping.ico" />
+    <None Include="Resources\Notepad-Bloc-notes-icon.png" />
+    <None Include="Resources\Notes-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy "C:\Users\administrator\Desktop\Workspace\Monitor - Actual\ITManagement\bin\Release\ITManagement.exe" "S:\Development\Robin\ITManagement.exe"
+taskkill /F /IM MyApp.vshost.exe &gt; %25temp%25\out.txt 2&gt;&amp;1 || exit /B 0</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

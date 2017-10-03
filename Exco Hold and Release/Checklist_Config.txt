@@ -1,0 +1,9 @@
+NOTE: Anything not starting with '#' will be ignored
+
+Setup: #DEPARTMENT|SUB_CATEGORY|CHECKLIST_ITEM
+Departments: SALES, CAD, CAM (case-sensitive)
+
+#SALES|Material|Die
+#SALES|Material1|Die1
+#SALES|Material12|Die13
+#SALES|Material2|Die2
