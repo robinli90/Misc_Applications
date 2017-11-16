@@ -57,13 +57,15 @@ namespace _5_Axis_Translator
 
 
                     // Check mandrel file first
-                    string turnFilePath = String.Format(@"\\10.0.0.8\shopdata\turn\{0}C", ORDERNUMBER);
+                    //string turnFilePath = String.Format(@"\\10.0.0.8\shopdata\turn\{0}C", ORDERNUMBER);
+                    string turnFilePath = String.Format(@"\\192.168.12.22\curjobs\ldata\turn\smalllathe\{0}C", ORDERNUMBER);
                     if (File.Exists(turnFilePath))
                     {
                     }
                     else
                     {
-                        turnFilePath = String.Format(@"\\10.0.0.8\shopdata\turn\{0}P", ORDERNUMBER);
+                        //turnFilePath = String.Format(@"\\10.0.0.8\shopdata\turn\{0}P", ORDERNUMBER);
+                        turnFilePath = String.Format(@"\\192.168.12.22\curjobs\ldata\turn\smalllathe\{0}P", ORDERNUMBER);
                     }
 
                     if (File.Exists(turnFilePath))

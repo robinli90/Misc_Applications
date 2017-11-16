@@ -373,22 +373,24 @@ namespace Translator
             //string line = "";
             if (ignoreFormatting) return;
 
-            for (int i = 0; i <= G_Code_List.Count - 1; i++)
+            string[] temp = FIRST_LINE.Split(new string[] { "/r/n" }, StringSplitOptions.None);
+
+            if (FIRST_LINE.Length > 0)
+            {
+                foreach (string t in temp.Reverse())
+                {
+                    if (t.Length > 0)
+                    {
+                        G_Code_List.Insert(0, t);
+                    }
+                }
+            }
+            
+
+            for (int i = temp.Length - (FIRST_LINE.Length == 0 ? 1 : 0); i <= G_Code_List.Count - 1; i++)
             //foreach (string g in G_Code_List)
             {
 
-                if (iz == 0 && FIRST_LINE.Length > 0)
-                {
-                    string[] temp = FIRST_LINE.Split(new string[] {"/r/n"}, StringSplitOptions.None);
-                    foreach (string t in temp)
-                    {
-                        if (t.Length > 0)
-                        {
-                            G_Code_List[i] = t;
-                        }
-                    }
-                    FIRST_LINE = "";
-                }
                 if (iz < G_Code_List.Count)
                 {
                     string g = G_Code_List[i];
@@ -429,11 +431,6 @@ namespace Translator
                         }
                     }
 
-                    string[] temp = LAST_LINE.Split(new string[] {"/r/n"}, StringSplitOptions.None);
-                    foreach (string t in temp)
-                    {
-                        G_Code_List[i] = t;
-                    }
                 }
                 iz++;
 
@@ -441,6 +438,13 @@ namespace Translator
                     iz = 1;
             }
 
+
+            string[] temp2 = LAST_LINE.Split(new string[] { "/r/n" }, StringSplitOptions.None);
+            if (LAST_LINE.Length > 0)
+                foreach (string t in temp2.Reverse())
+                {
+                    G_Code_List.Add(t);
+                }
             /* OLD DUMB WAY
             foreach (string g in G_Code_List)
             {

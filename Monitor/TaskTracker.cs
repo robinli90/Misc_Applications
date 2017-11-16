@@ -53,7 +53,7 @@ namespace Monitor
         {
             if (running)
             {
-                //Process_Files("\\\\10.0.0.8\\shopdata\\ACCT\\CMDS\\");
+                Process_Files("\\\\10.0.0.8\\shopdata\\ACCT\\CMDS\\");
                 //Process_Files("\\\\10.0.0.4\\sdrive\\ACCT\\CMDS\\");
                 //Process_Files("\\\\10.0.0.8\\sdrive\\ACCT\\CMDS\\");
             }

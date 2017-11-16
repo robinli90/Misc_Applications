@@ -35,6 +35,24 @@ namespace FileSyncTool
             @"\\192.168.101.22\rdrive\cust\",
             @"\\192.168.16.22\rdrive\cust\"
         };
+            
+        List<string> _5AxisPlantIP = new List<string>()
+        {
+            @"\\10.0.0.8\shopdata\curjobs\mill5axis",
+            @"\\192.168.1.23\curjobs\curjobs\mill5axis",
+            @"\\192.168.12.22\curjobs\curjobs\mill5axis",
+            @"\\192.168.101.22\curjobs\curjobs\mill5axis",
+            @"\\192.168.16.22\curjobs\curjobs\mill5axis"
+        };
+            
+        List<string> _5AxisToollistPlantIP = new List<string>()
+        {
+            @"\\10.0.0.8\shopdata\curjobs\Toollist5Axis",
+            @"\\192.168.1.23\curjobs\curjobs\Toollist5Axis",
+            @"\\192.168.12.22\curjobs\curjobs\Toollist5Axis",
+            @"\\192.168.101.22\curjobs\curjobs\Toollist5Axis",
+            @"\\192.168.16.22\curjobs\curjobs\Toollist5Axis"
+        };
 
         string table_name = "JobPlantDefine"; // Main table query name
 
@@ -84,6 +102,7 @@ namespace FileSyncTool
                 foreach (KeyValuePair<string, string> Entry in Order_Numbers)
                 {
                     Sync_Customer_File(Entry.Value, Entry.Key);
+                    Sync5Axis(Entry.Key);
 
                     Console.WriteLine("Finding files for " + Entry.Key);
 
@@ -148,14 +167,7 @@ namespace FileSyncTool
                             }
                         }
                     }
-
-                    // Get appropriate database
-                    if (Source_Plant_Name == "MARKHAM") database2.Open(Database.DECADE_MARKHAM);
-                    if (Source_Plant_Name == "MICHIGAN") database2.Open(Database.DECADE_MICHIGAN);
-                    if (Source_Plant_Name == "TEXAS") database2.Open(Database.DECADE_TEXAS);
-                    if (Source_Plant_Name == "COLOMBIA") database2.Open(Database.DECADE_COLOMBIA);
-                    if (Source_Plant_Name == "BRAZIL") database2.Open(Database.DECADE_BRAZIL);
-
+                    
                     if (!error)
                     {
                         Console.WriteLine("Updating Database........");
@@ -171,8 +183,21 @@ namespace FileSyncTool
                                        "] set flag = '0' where ordernumber = '" + Entry.Key +
                                        "' and manufacturesite = '" + Entry.Value + "'";
                         OdbcDataReader reader2;
-
                         reader2 = database2.RunQuery(query);
+                        reader2.Close();
+
+                        if (Source_Plant_Name == "MARKHAM") database2.Open(Database.DECADE_MARKHAM);
+                        if (Source_Plant_Name == "MICHIGAN") database2.Open(Database.DECADE_MICHIGAN);
+                        if (Source_Plant_Name == "TEXAS") database2.Open(Database.DECADE_TEXAS);
+                        if (Source_Plant_Name == "COLOMBIA") database2.Open(Database.DECADE_COLOMBIA);
+                        if (Source_Plant_Name == "BRAZIL") database2.Open(Database.DECADE_BRAZIL);
+
+                        // Update
+                        query = "update [tiger].[dbo].[" + table_name +
+                                       "] set flag5x = '0' where ordernumber = '" + Entry.Key +
+                                       "' and manufacturesite = '" + Entry.Value + "'";
+                        reader2 = database2.RunQuery(query);
+                        reader2.Close();
 
                         WriteLog("Updating database for ordernumber = " + Entry.Key);
                     }
@@ -186,6 +211,8 @@ namespace FileSyncTool
 
         private Dictionary<string, string> Get_Jobs_To_Sync()
         {
+            _5AxisFileList = new Dictionary<string, string>();
+
             Dictionary<string, string> Return_String = new Dictionary<string, string>();
 
             // Get appropriate database
@@ -195,18 +222,27 @@ namespace FileSyncTool
             if (Source_Plant_Name == "COLOMBIA") database2.Open(Database.DECADE_COLOMBIA);
             if (Source_Plant_Name == "BRAZIL") database2.Open(Database.DECADE_BRAZIL);
 
-            string query = "select * from [tiger].[dbo].[" + table_name + "] where flag = '1'";
+            string query = "select * from [tiger].[dbo].[" + table_name + "] where flag = '1' or flag5x = '3";
             OdbcDataReader reader2;
 
             reader2 = database2.RunQuery(query);
             while (reader2.Read())
             {
                 Return_String.Add(reader2[0].ToString().Trim(), reader2[1].ToString().Trim());
+
+                // Save 5 axis locations
+                if (reader2[1].ToString().Trim() == reader2[2].ToString().Trim() && reader2[7].ToString().Trim() == "1")
+                {
+                    _5AxisFileList.Add(reader2[0].ToString().Trim(), reader2[6].ToString().Trim());
+                }
             }
             reader2.Close();
                 
             return Return_String;
         }
+
+        private Dictionary<string, string> _5AxisFileList = new Dictionary<string, string>();
+
 
         string source_path = "";
         string destination_path = "";
@@ -262,7 +298,19 @@ namespace FileSyncTool
                 WriteLog("Syncing r/cust for ordernumber = " + ordernumber);
                 Console.WriteLine(source_path + customer_code + "\\" + file_name + ".prt  " + " TO " + destination_path + file_name + ".prt");
                 File.Copy(source_path + customer_code + "\\" + file_name + ".prt", destination_path + GetCustPlantMap(customer_code) + "\\" + file_name + ".prt", true);
-             // File.Copy(source_path + customer_code + "\\" + file_name + "_model5x.prt", destination_path + file_name + "_model5x.prt", true);
+                
+                // Copy program to other plant
+                if (_5AxisFileList.ContainsKey(ordernumber))
+                {
+                    destination_plant = _5AxisFileList[ordernumber];
+                    if (destination_plant == "MARKHAM") destination_path = Plant_IP[0];
+                    if (destination_plant == "MICHIGAN") destination_path = Plant_IP[1];
+                    if (destination_plant == "TEXAS") destination_path = Plant_IP[2];
+                    if (destination_plant == "COLOMBIA") destination_path = Plant_IP[3];
+                    if (destination_plant == "BRAZIL") destination_path = Plant_IP[4];
+                    File.Copy(source_path + customer_code + "\\" + file_name + ".prt", destination_path + GetCustPlantMap(customer_code) + "\\" + file_name + ".prt", true);
+                }
+                // File.Copy(source_path + customer_code + "\\" + file_name + "_model5x.prt", destination_path + file_name + "_model5x.prt", true);
             }
             catch (Exception e)
             {
@@ -309,7 +357,18 @@ namespace FileSyncTool
             {
                 Console.WriteLine(source_path + customer_code + "\\" + file_name + ".prt" + "TO " + destination_path + file_name + ".prt");
                 File.Copy(source_path + customer_code + "\\" + file_name + ".prt", destination_path + GetCustPlantMap(customer_code) + "\\" + file_name + ".prt", true);
-                // File.Copy(source_path + customer_code + "\\" + file_name + "_model5x.prt", destination_path + file_name + "_model5x.prt", true);
+
+                // Copy program to other plant
+                if (_5AxisFileList.ContainsKey(ordernumber))
+                {
+                    destination_plant = _5AxisFileList[ordernumber];
+                    if (destination_plant == "MARKHAM") destination_path = Plant_IP[0];
+                    if (destination_plant == "MICHIGAN") destination_path = Plant_IP[1];
+                    if (destination_plant == "TEXAS") destination_path = Plant_IP[2];
+                    if (destination_plant == "COLOMBIA") destination_path = Plant_IP[3];
+                    if (destination_plant == "BRAZIL") destination_path = Plant_IP[4];
+                    File.Copy(source_path + customer_code + "\\" + file_name + ".prt", destination_path + GetCustPlantMap(customer_code) + "\\" + file_name + ".prt", true);
+                }
             }
             catch (Exception e)
             {
@@ -320,6 +379,77 @@ namespace FileSyncTool
 
             return true;
         }
+
+
+        private void Sync5Axis(string orderNumber)
+        {
+
+            OdbcDataReader reader2;
+
+            // Get appropriate database
+            database2.Open(Database.DECADE_MARKHAM);
+            // CUTSTOCKFILENAME
+            string query = "select * from [tiger].[dbo].[CAM_order] where ordernumber = '" + orderNumber + "' and flag5x = '3'";
+
+            reader2 = database2.RunQuery(query);
+            while (reader2.Read())
+            {
+                try
+                {
+                    string destination_plant = reader2[1].ToString().Trim();
+                    string Source_Plant_Name = reader2[6].ToString().Trim();
+
+                    if (Source_Plant_Name == "MARKHAM") source_path = _5AxisPlantIP[0];
+                    if (Source_Plant_Name == "MICHIGAN") source_path = _5AxisPlantIP[1];
+                    if (Source_Plant_Name == "TEXAS") source_path = _5AxisPlantIP[2];
+                    if (Source_Plant_Name == "COLOMBIA") source_path = _5AxisPlantIP[3];
+                    if (Source_Plant_Name == "BRAZIL") source_path = _5AxisPlantIP[4];
+
+                    if (destination_plant == "MARKHAM") destination_path = _5AxisPlantIP[0];
+                    if (destination_plant == "MICHIGAN") destination_path = _5AxisPlantIP[1];
+                    if (destination_plant == "TEXAS") destination_path = _5AxisPlantIP[2];
+                    if (destination_plant == "COLOMBIA") destination_path = _5AxisPlantIP[3];
+                    if (destination_plant == "BRAZIL") destination_path = _5AxisPlantIP[4];
+
+                    File.Copy(source_path + orderNumber + "_1.h", destination_path + orderNumber + "_1.h", true);
+
+                    // Copy tool list file
+                    if (Source_Plant_Name == "MARKHAM") source_path = _5AxisToollistPlantIP[0];
+                    if (Source_Plant_Name == "MICHIGAN") source_path = _5AxisToollistPlantIP[1];
+                    if (Source_Plant_Name == "TEXAS") source_path = _5AxisToollistPlantIP[2];
+                    if (Source_Plant_Name == "COLOMBIA") source_path = _5AxisToollistPlantIP[3];
+                    if (Source_Plant_Name == "BRAZIL") source_path = _5AxisToollistPlantIP[4];
+
+                    if (destination_plant == "MARKHAM") destination_path = _5AxisToollistPlantIP[0];
+                    if (destination_plant == "MICHIGAN") destination_path = _5AxisToollistPlantIP[1];
+                    if (destination_plant == "TEXAS") destination_path = _5AxisToollistPlantIP[2];
+                    if (destination_plant == "COLOMBIA") destination_path = _5AxisToollistPlantIP[3];
+                    if (destination_plant == "BRAZIL") destination_path = _5AxisToollistPlantIP[4];
+
+                    File.Copy(source_path + orderNumber + "_1.h", destination_path + orderNumber + "_1.h", true);
+                }
+                catch (Exception e)
+                {
+                }
+            }
+
+            reader2.Close();
+
+            // Update flag
+            if (Source_Plant_Name == "MARKHAM") database2.Open(Database.DECADE_MARKHAM);
+            if (Source_Plant_Name == "MICHIGAN") database2.Open(Database.DECADE_MICHIGAN);
+            if (Source_Plant_Name == "TEXAS") database2.Open(Database.DECADE_TEXAS);
+            if (Source_Plant_Name == "COLOMBIA") database2.Open(Database.DECADE_COLOMBIA);
+            if (Source_Plant_Name == "BRAZIL") database2.Open(Database.DECADE_BRAZIL);
+
+            // Update
+            query = "update [tiger].[dbo].[" + table_name +
+                           "] set 5xflag = '0' where ordernumber = '" + orderNumber +
+                           "' and programsite5x = '" + Source_Plant_Name + "'";
+            reader2 = database2.RunQuery(query);
+            reader2.Close();
+        }
+
 
         private void SendErrorEmail(string orderNo)
         {

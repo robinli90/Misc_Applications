@@ -83,7 +83,6 @@
             this.richTextBox12.Size = new System.Drawing.Size(97, 29);
             this.richTextBox12.TabIndex = 61;
             this.richTextBox12.Text = "*seperate additional lines with \'/r/n\'";
-            this.richTextBox12.Visible = false;
             // 
             // last_line_box
             // 
@@ -94,7 +93,6 @@
             this.last_line_box.Name = "last_line_box";
             this.last_line_box.Size = new System.Drawing.Size(161, 20);
             this.last_line_box.TabIndex = 60;
-            this.last_line_box.Visible = false;
             // 
             // richTextBox11
             // 
@@ -106,7 +104,6 @@
             this.richTextBox11.Size = new System.Drawing.Size(130, 12);
             this.richTextBox11.TabIndex = 59;
             this.richTextBox11.Text = "Last line character(s):";
-            this.richTextBox11.Visible = false;
             // 
             // first_line_box
             // 
@@ -117,7 +114,6 @@
             this.first_line_box.Name = "first_line_box";
             this.first_line_box.Size = new System.Drawing.Size(161, 20);
             this.first_line_box.TabIndex = 58;
-            this.first_line_box.Visible = false;
             // 
             // richTextBox10
             // 
@@ -129,7 +125,6 @@
             this.richTextBox10.Size = new System.Drawing.Size(104, 16);
             this.richTextBox10.TabIndex = 57;
             this.richTextBox10.Text = "First line character(s):";
-            this.richTextBox10.Visible = false;
             // 
             // value
             // 
@@ -532,7 +527,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.DarkGray;
-            this.ClientSize = new System.Drawing.Size(448, 315);
+            this.ClientSize = new System.Drawing.Size(443, 319);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
