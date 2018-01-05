@@ -244,65 +244,6 @@ namespace Monitor
 
 
             }
-            /*
-                p3 = count_files("\\\\10.0.0.8\\shopdata\\LDATA\\CHECK\\");
-                p4 = count_files("\\\\10.0.0.8\\shopdata\\TURN\\BOL\\");
-                p5 = count_files("\\\\10.0.0.8\\shopdata\\LDATA\\PLOTS\\PLOT_PRINT\\");
-                p6 = count_files("\\\\10.0.0.8\\shopdata\\LDATA\\PLOTS\\A4_PRINT\\");
-                p7 = count_files("\\\\10.0.0.8\\shopdata\\LDATA\\LATHEDWG\\");
-                p8 = count_files("\\\\10.0.0.8\\shopdata\\Development\\Robin\\TEST\\");
-                p9 = count_files("\\\\10.0.0.8\\shopdata\\LDATA\\COLOMBIA\\DATACOPY\\");
-                p10 = count_files("\\\\FILESRV\\SDRIVE\\LDATAFROMCOLOMBIA\\");
-
-                progressBar1.Value = p1;
-                progressBar2.Value = p2;
-                progressBar3.Value = p3;
-                progressBar4.Value = p4;
-                progressBar5.Value = p5;
-                progressBar6.Value = p6;
-                progressBar7.Value = p7;
-                progressBar8.Value = p8;
-                progressBar9.Value = p9;
-                progressBar10.Value = p10;
-
-
-                #region blue bars
-                progressBar1.ForeColor = System.Drawing.Color.Cyan;
-                progressBar2.ForeColor = System.Drawing.Color.Cyan;
-                progressBar3.ForeColor = System.Drawing.Color.Cyan;
-                progressBar4.ForeColor = System.Drawing.Color.Cyan;
-                progressBar5.ForeColor = System.Drawing.Color.Cyan;
-                progressBar6.ForeColor = System.Drawing.Color.Cyan;
-                progressBar7.ForeColor = System.Drawing.Color.Cyan;
-                progressBar8.ForeColor = System.Drawing.Color.Cyan;
-                progressBar9.ForeColor = System.Drawing.Color.Cyan;
-                progressBar10.ForeColor = System.Drawing.Color.Cyan;
-                #endregion
-                #region yellow bars
-                if (p1 > 40) progressBar1.ForeColor = System.Drawing.Color.Yellow;
-                if (p2 > 40) progressBar2.ForeColor = System.Drawing.Color.Yellow;
-                if (p3 > 40) progressBar3.ForeColor = System.Drawing.Color.Yellow;
-                if (p4 > 40) progressBar4.ForeColor = System.Drawing.Color.Yellow;
-                if (p5 > 40) progressBar5.ForeColor = System.Drawing.Color.Yellow;
-                if (p6 > 40) progressBar6.ForeColor = System.Drawing.Color.Yellow;
-                if (p7 > 40) progressBar7.ForeColor = System.Drawing.Color.Yellow;
-                if (p8 > 40) progressBar8.ForeColor = System.Drawing.Color.Yellow;
-                if (p9 > 40) progressBar9.ForeColor = System.Drawing.Color.Yellow;
-                if (p10 > 40) progressBar10.ForeColor = System.Drawing.Color.Yellow;
-                #endregion
-                #region red bars
-                if (p1 > 65) progressBar1.ForeColor = System.Drawing.Color.Red;
-                if (p2 > 65) progressBar2.ForeColor = System.Drawing.Color.Red;
-                if (p3 > 65) progressBar3.ForeColor = System.Drawing.Color.Red;
-                if (p4 > 65) progressBar4.ForeColor = System.Drawing.Color.Red;
-                if (p5 > 65) progressBar5.ForeColor = System.Drawing.Color.Red;
-                if (p6 > 65) progressBar6.ForeColor = System.Drawing.Color.Red;
-                if (p7 > 65) progressBar7.ForeColor = System.Drawing.Color.Red;
-                if (p8 > 65) progressBar8.ForeColor = System.Drawing.Color.Red;
-                if (p9 > 65) progressBar9.ForeColor = System.Drawing.Color.Red;
-                if (p10 > 65) progressBar10.ForeColor = System.Drawing.Color.Red;
-                #endregion
-            }*/
 
             if (false)//(ticks % 2000 == 0 || ticks == 22) //20 seconds
             {

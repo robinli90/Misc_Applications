@@ -15,34 +15,6 @@ using System.Threading;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 
-/*
- * There are many parameters required for changing in order to accomodate any additional ruling algorithms 
- * 
- * Some things to consider
- *  1) How the rule is displayed in the translation_rules box   ---> Translator._Setup_Rule_List();
- *  2) What the rule actually does (action taken)               ---> Translator.Change_Line;
- *  3) Edit behaviour (The edit fills in appropriate boxes)     
- *  4) Continuing from the idea above, determine which boxes 
- *     are required to be filled in and enable/disable the
- *     appropriate objects associated with new rule action      ---> Add_Rule.Edit_Parse();
- *  5) Make sure you add the checkbox to the check_boxes 
- *     which is a List<CheckBox>                                ---> Add_Rule.Add_Check_Boxes();
- *     *Note, order is important. The program checks the boxes
- *     in sequence; out of order means wrong box is checked
- *  6) Edit how you want the required parameters to be stored   ---> Add_Rule.Add_Rule_Check();
- *     *This function goes hand-and-hand with Add_Rule_Check
- *     so it is imperative to understand the relationship
- *  7) If your function is a multi-conditional rule, you        ---> Rule_Sub_Routine.cs
- *     probably want to add it to the Multi-Parameter ruling
- *     set. However, this method is complicated in nature.
- *     There are my things to consider when adding a function
- *     to this set; you must also handle the EDIT functionality
- *     here as well.
- *  8) Please note that button3.Visible = true but the button 
- *     itself is hidden behind the first combobox containing 
- *     all the rules
-*/
-
 namespace Translator
 {
     public partial class Translator : Form
@@ -1130,9 +1102,14 @@ namespace Translator
                         OdbcDataReader reader;
                         database.Open(Database.DECADE_MARKHAM);
                         reader = database.RunQuery(GET_TEXT_WITH_BIN(query));
-                        while (reader.Read())
+                        reader.Read();
+                        try
                         {
                             MEMORY_BIN[Convert.ToInt32(value)] = reader[0].ToString();
+                        }
+                        catch
+                        {
+                            
                         }
                         reader.Close();
                     }

@@ -112,12 +112,13 @@ namespace SteelIN_StandAlone
             supplierbox.Items.Add("SB Spec.");
             supplierbox.Items.Add("ELLWOOD");
             supplierbox.SelectedIndex = 0;
+            steeltypebox.Items.Add("H-11");
             steeltypebox.Items.Add("H-13");
             steeltypebox.Items.Add("VEX");
             steeltypebox.Items.Add("DVR");
             steeltypebox.Items.Add("QRO90");
             steeltypebox.Items.Add("W360");
-            steeltypebox.SelectedIndex = 0;
+            steeltypebox.SelectedIndex = 1;
         }
 
         // Detect if non-number input in length

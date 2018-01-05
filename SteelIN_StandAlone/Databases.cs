@@ -85,9 +85,9 @@ namespace Databases
                         dbName = "prodtest";
                         break;
                     case Database.DECADE_MARKHAM:
-                        user = "gary";
-                        password = "gary";
-                        connectionString = "Driver={SQL Server};Server=10.0.0.8;Uid=" + user + ";Pwd=" + password + ";";
+                        user = "jamie";
+                        password = "jamie";
+                        connectionString = "Driver={SQL Server};Server=10.0.0.6;Uid=" + user + ";Pwd=" + password + ";";
                         dbName = "dbo";
                         break;
                     case Database.DECADE_MICHIGAN:

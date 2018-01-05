@@ -38,20 +38,20 @@ namespace FileSyncTool
             
         List<string> _5AxisPlantIP = new List<string>()
         {
-            @"\\10.0.0.8\shopdata\curjobs\mill5axis",
-            @"\\192.168.1.23\curjobs\curjobs\mill5axis",
-            @"\\192.168.12.22\curjobs\curjobs\mill5axis",
-            @"\\192.168.101.22\curjobs\curjobs\mill5axis",
-            @"\\192.168.16.22\curjobs\curjobs\mill5axis"
+            @"\\10.0.0.8\shopdata\curjobs\mill5axis\",
+            @"\\192.168.1.23\curjobs\curjobs\mill5axis\",
+            @"\\192.168.12.22\curjobs\curjobs\mill5axis\",
+            @"\\192.168.101.22\curjobs\curjobs\mill5axis\",
+            @"\\192.168.16.22\curjobs\curjobs\mill5axis\"
         };
             
         List<string> _5AxisToollistPlantIP = new List<string>()
         {
-            @"\\10.0.0.8\shopdata\curjobs\Toollist5Axis",
-            @"\\192.168.1.23\curjobs\curjobs\Toollist5Axis",
-            @"\\192.168.12.22\curjobs\curjobs\Toollist5Axis",
-            @"\\192.168.101.22\curjobs\curjobs\Toollist5Axis",
-            @"\\192.168.16.22\curjobs\curjobs\Toollist5Axis"
+            @"\\10.0.0.8\shopdata\curjobs\Toollist5Axis\",
+            @"\\192.168.1.23\curjobs\curjobs\Toollist5Axis\",
+            @"\\192.168.12.22\curjobs\curjobs\Toollist5Axis\",
+            @"\\192.168.101.22\curjobs\curjobs\Toollist5Axis\",
+            @"\\192.168.16.22\curjobs\curjobs\Toollist5Axis\"
         };
 
         string table_name = "JobPlantDefine"; // Main table query name
@@ -222,7 +222,7 @@ namespace FileSyncTool
             if (Source_Plant_Name == "COLOMBIA") database2.Open(Database.DECADE_COLOMBIA);
             if (Source_Plant_Name == "BRAZIL") database2.Open(Database.DECADE_BRAZIL);
 
-            string query = "select * from [tiger].[dbo].[" + table_name + "] where flag = '1' or flag5x = '3";
+            string query = "select * from [tiger].[dbo].[" + table_name + "] where flag = '1' or flag5x = '3'";
             OdbcDataReader reader2;
 
             reader2 = database2.RunQuery(query);
@@ -231,7 +231,7 @@ namespace FileSyncTool
                 Return_String.Add(reader2[0].ToString().Trim(), reader2[1].ToString().Trim());
 
                 // Save 5 axis locations
-                if (reader2[1].ToString().Trim() == reader2[2].ToString().Trim() && reader2[7].ToString().Trim() == "1")
+                if (reader2[7].ToString().Trim() == "3" && reader2[6].ToString().Trim().Length > 2)
                 {
                     _5AxisFileList.Add(reader2[0].ToString().Trim(), reader2[6].ToString().Trim());
                 }
@@ -383,13 +383,19 @@ namespace FileSyncTool
 
         private void Sync5Axis(string orderNumber)
         {
+            if (!_5AxisFileList.ContainsKey(orderNumber)) return;
 
             OdbcDataReader reader2;
 
             // Get appropriate database
-            database2.Open(Database.DECADE_MARKHAM);
+            if (Source_Plant_Name == "MARKHAM") database2.Open(Database.DECADE_MARKHAM);
+            if (Source_Plant_Name == "MICHIGAN") database2.Open(Database.DECADE_MICHIGAN);
+            if (Source_Plant_Name == "TEXAS") database2.Open(Database.DECADE_TEXAS);
+            if (Source_Plant_Name == "COLOMBIA") database2.Open(Database.DECADE_COLOMBIA);
+            if (Source_Plant_Name == "BRAZIL") database2.Open(Database.DECADE_BRAZIL);
+
             // CUTSTOCKFILENAME
-            string query = "select * from [tiger].[dbo].[CAM_order] where ordernumber = '" + orderNumber + "' and flag5x = '3'";
+            string query = "select * from [tiger].[dbo].[jobplantdefine] where ordernumber = '" + orderNumber + "' and flag5x = '3'";
 
             reader2 = database2.RunQuery(query);
             while (reader2.Read())
@@ -444,7 +450,7 @@ namespace FileSyncTool
 
             // Update
             query = "update [tiger].[dbo].[" + table_name +
-                           "] set 5xflag = '0' where ordernumber = '" + orderNumber +
+                           "] set flag5x = '0' where ordernumber = '" + orderNumber +
                            "' and programsite5x = '" + Source_Plant_Name + "'";
             reader2 = database2.RunQuery(query);
             reader2.Close();

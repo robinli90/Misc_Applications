@@ -54,7 +54,6 @@ namespace Databases
         public string ConnectionString
         {
             get
-
             {
                 return connectionString;
             }
@@ -84,49 +83,9 @@ namespace Databases
                 switch (database)
                 {
                     case Database.DECADE_MARKHAM:
-                        //user = "gary";
-                        //password = "gary";
                         connectionString = connection_str + ";Uid=" + user + ";Pwd=" + password + ";";
                         dbName = database_name;
                         break;
-                        /*
-                    case Database.CMSDAT:
-                        user = "JXU";//user = "ZWANG";
-                        password = "qwpo555";//password = "ZWANG";
-                        connectionString = "Driver={iSeries Access ODBC Driver};Name=cms1;System=10.0.0.35;Uid=" + user + ";Pwd=" + password + ";";
-                        dbName = "cmsdat";
-                        break;
-                    case Database.PRODTEST:
-                        user = "JXU";//user = "ZWANG";
-                        password = "qwpo555";//password = "ZWANG";
-                        connectionString = "Driver={iSeries Access ODBC Driver};Name=cms1;System=10.0.0.35;Uid=" + user + ";Pwd=" + password + ";";
-                        dbName = "prodtest";
-                        break;
-                    case Database.DECADE_MARKHAM:
-                        user = "gary";
-                        password = "gary";
-                        connectionString = "Driver={SQL Server};Server=10.0.0.8;Uid=" + user + ";Pwd=" + password + ";";
-                        dbName = "dbo";
-                        break;
-                    case Database.DECADE_MICHIGAN:
-                        user = "jamie";
-                        password = "jamie";
-                        connectionString = "Driver={SQL Server};Server=192.168.1.7;Uid=" + user + ";Pwd=" + password + ";";
-                        dbName = "dbo";
-                        break;
-                    case Database.DECADE_TEXAS:
-                        user = "jamie";
-                        password = "jamie";
-                        connectionString = "Driver={SQL Server};Server=192.168.12.7;Uid=" + user + ";Pwd=" + password + ";";
-                        dbName = "dbo";
-                        break;
-                    case Database.DECADE_COLOMBIA:
-                        user = "jamie";
-                        password = "jamie";
-                        connectionString = "Driver={SQL Server};Server=192.168.101.7;Uid=" + user + ";Pwd=" + password + ";";
-                        dbName = "dbo";
-                        break;
-                         * */
                     default:
                         throw new Exception("Unhandled database!");
                 }
